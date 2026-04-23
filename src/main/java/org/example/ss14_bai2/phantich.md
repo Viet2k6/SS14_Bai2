@@ -1,0 +1,3 @@
+Nếu không có Transaction, mỗi lệnh update sẽ được thực hiện độc lập và được lưu ngay xuống database (auto-commit). Vì vậy, khi hệ thống đã cập nhật trạng thái đơn hàng thành "CANCELLED", thay đổi này đã được ghi lại. Nếu bước "Hoàn kho" phía sau bị lỗi (ví dụ productId null), hệ thống không có cơ chế rollback để quay lui dữ liệu, nên trạng thái đơn hàng vẫn giữ là "CANCELLED".
+
+Điều này gây thiệt hại cho kho hàng vì số lượng sản phẩm không được hoàn lại, dẫn đến tồn kho bị sai lệch. Hệ thống sẽ ghi nhận thiếu hàng so với thực tế, có thể gây thất thoát, sai báo cáo và ảnh hưởng đến việc quản lý và bán hàng.
